@@ -31,7 +31,7 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void listNearbyDevicesAddress(Promise p) {
-    final ReadableArray<String> devicesAddress = new ReadableArray<String>();
+    final ReadableArray devicesAddress = new ReadableArray();
     final Promise promise = p;
 
     try {
