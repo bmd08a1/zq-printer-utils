@@ -15,6 +15,8 @@ import com.zebra.sdk.printer.discovery.BluetoothDiscoverer;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter;
 import com.zebra.sdk.printer.discovery.DiscoveryHandler;
 
+import java.util.ArrayList;
+
 public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
   private final ReactApplicationContext reactContext;
@@ -31,7 +33,7 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void listNearbyDevicesAddress(Promise p) {
-    final ReadableArray devicesAddress = new ReadableArray();
+    final ReadableArray devicesAddress = new ArrayList<String>();
     final Promise promise = p;
 
     try {
