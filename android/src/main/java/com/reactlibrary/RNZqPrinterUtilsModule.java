@@ -31,8 +31,9 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public ArrayList<String> listNearbyDevicesAddress(Promise promise) {
-    ArrayList<String> devicesAddress = new ArrayList<String>();
+  public void listNearbyDevicesAddress(Promise promise) {
+    final ArrayList<String> devicesAddress = new ArrayList<String>();
+    final Promise promise = promise;
 
     try {
       BluetoothDiscoverer.findPrinters(this.reactContext, new DiscoveryHandler() {
