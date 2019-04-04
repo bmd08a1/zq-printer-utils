@@ -83,7 +83,7 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
       if (printerStatus.isReadyToPrint) {
         Log.i(getName(), "printer is ready to print");
-        printer.sendCommand(commands.getBytes());
+        printer.sendCommand(commands);
         Log.i(getName(), "print successful");
         promise.resolve("success");
       }
