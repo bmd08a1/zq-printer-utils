@@ -87,7 +87,7 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
         promise.resolve("success");
       }
     } catch (ConnectionException e) {
-      promise.reject(e.message);
+      promise.reject(e.getMessage());
     }
   }
 }
