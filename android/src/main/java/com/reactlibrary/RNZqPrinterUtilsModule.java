@@ -13,8 +13,13 @@ import com.facebook.react.bridge.Arguments;
 
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.printer.discovery.BluetoothDiscoverer;
+import com.zebra.sdk.printer.discovery.BluetoothConnection;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter;
 import com.zebra.sdk.printer.discovery.DiscoveryHandler;
+import com.zebra.sdk.printer.ZebraPrinter;
+import com.zebra.sdk.printer.ZebraPrinterFactory;
+import com.zebra.sdk.printer.ZebraPrinterLinkOs;
+import com.zebra.sdk.printer.PrinterStatus;
 
 public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
@@ -56,6 +61,32 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
     } catch (ConnectionException e) {
       Log.i(getName(), "Printer connection error");
       promise.reject(getName(), e);
+    }
+  }
+
+  @ReactMethod
+  public void printWithCommands(String printerAddress, String commands, Promise promise) {
+    connection = new BluetoothConnection(printerAddress);
+
+    try {
+      connection.open();
+      Log.i(getName(), "connect successful");
+
+      ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);
+      ZebraPrinterLinkOs linkOsPrinter = ZebraPrinterFactory.createLinkOsPrinter(printer);
+      Log.i(getName(), "init printer successful");
+
+      PrinterStatus printerStatus = (linkOsPrinter != null) ? linkOsPrinter.getCurrentStatus() : printer.getCurrentStatus();
+      Log.i(getName(), "get printerStatus successful");
+
+      if (printerStatus.isReadyToPrint) {
+        Log.i(getName(), "printer is ready to print");
+        printer.sendCommand(commands);
+        Log.i(getName(), "print successful");
+        promise.resolve("success");
+      }
+    } catch (ConnectionException e) {
+      promise.reject(e.message);
     }
   }
 }
