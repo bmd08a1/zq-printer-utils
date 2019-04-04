@@ -33,4 +33,5 @@ repositories {
 dependencies {
     compile 'com.facebook.react:react-native:+'
     compile files('libs/ZSDK_ANDROID_API.jar')
+    compile files('libs/jackson-databind-2.2.3.jar')
 }
