@@ -8,14 +8,12 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.WritableArray;
 
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.printer.discovery.BluetoothDiscoverer;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter;
 import com.zebra.sdk.printer.discovery.DiscoveryHandler;
-
-import java.util.ArrayList;
 
 public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
@@ -32,15 +30,14 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void listNearbyDevicesAddress(Promise p) {
-    final ReadableArray devicesAddress = new ArrayList<String>();
-    final Promise promise = p;
+  public void listNearbyDevicesAddress(final Promise promise) {
+    final WritableArray devicesAddress = new Arguments.createArray();
 
     try {
       BluetoothDiscoverer.findPrinters(this.reactContext, new DiscoveryHandler() {
         @Override
         public void foundPrinter(DiscoveredPrinter discoveredPrinter) {
-          devicesAddress.add(discoveredPrinter.address);
+          devicesAddress.pushString(discoveredPrinter.address);
           Log.i(getName(), "Discovered a printer");
         }
 
