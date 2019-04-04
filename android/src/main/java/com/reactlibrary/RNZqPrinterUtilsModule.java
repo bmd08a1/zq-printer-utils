@@ -11,6 +11,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.Arguments;
 
+import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.BluetoothConnection;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.printer.discovery.BluetoothDiscoverer;
@@ -66,7 +67,7 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void printWithCommands(String printerAddress, String commands, Promise promise) {
-    connection = new BluetoothConnection(printerAddress);
+    Connection connection = new BluetoothConnection(printerAddress);
 
     try {
       connection.open();
