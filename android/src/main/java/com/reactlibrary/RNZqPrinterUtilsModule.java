@@ -83,13 +83,15 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
       if (printerStatus.isReadyToPrint) {
         Log.i(getName(), "printer is ready to print");
-        printer.sendCommand(commands);
+        printer.sendCommand(commands.getBytes());
         Log.i(getName(), "print successful");
         promise.resolve("success");
       }
     } catch (ConnectionException e) {
+      Log.i(getName(), "cannot connect");
       promise.reject(e.getMessage());
     } catch (ZebraPrinterLanguageUnknownException e) {
+      Log.i(getName(), "unknow printer languague");
       promise.reject(e.getMessage());
     }
   }
