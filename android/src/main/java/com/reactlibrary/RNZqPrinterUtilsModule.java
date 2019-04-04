@@ -18,6 +18,7 @@ import com.zebra.sdk.printer.discovery.BluetoothDiscoverer;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter;
 import com.zebra.sdk.printer.discovery.DiscoveryHandler;
 import com.zebra.sdk.printer.ZebraPrinter;
+import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 import com.zebra.sdk.printer.ZebraPrinterFactory;
 import com.zebra.sdk.printer.ZebraPrinterLinkOs;
 import com.zebra.sdk.printer.PrinterStatus;
@@ -87,6 +88,8 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
         promise.resolve("success");
       }
     } catch (ConnectionException e) {
+      promise.reject(e.getMessage());
+    } catch (ZebraPrinterLanguageUnknownException e) {
       promise.reject(e.getMessage());
     }
   }
