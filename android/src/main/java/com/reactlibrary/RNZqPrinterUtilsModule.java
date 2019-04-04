@@ -38,8 +38,8 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
       BluetoothDiscoverer.findPrinters(this.reactContext, new DiscoveryHandler() {
         @Override
         public void foundPrinter(DiscoveredPrinter discoveredPrinter) {
-          devicesAddress.pushString(discoveredPrinter.address);
           Log.i(getName(), "Discovered a printer");
+          devicesAddress.pushString(discoveredPrinter.address);
         }
 
         @Override
