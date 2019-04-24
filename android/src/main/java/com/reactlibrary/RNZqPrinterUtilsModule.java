@@ -40,6 +40,7 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
   public RNZqPrinterUtilsModule(ReactApplicationContext reactContext) {
     super(reactContext);
+    context = reactContext;
     this.reactContext = reactContext;
   }
 
