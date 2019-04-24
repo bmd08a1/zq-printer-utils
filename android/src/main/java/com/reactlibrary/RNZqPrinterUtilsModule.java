@@ -132,7 +132,7 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
       ParcelUuid[] deviceUuids = device.getUuids();
       for (ParcelUuid uuid : deviceUuids) {
         Log.d(getName(), uuid.toString());
-        if (uuid.toString() == "00001101-0000-1000-8000-00805f9b34fb") {
+        if (uuid.toString().equals("00001101-0000-1000-8000-00805f9b34fb")) {
           promise.resolve(device.getAddress());
         }
       }
