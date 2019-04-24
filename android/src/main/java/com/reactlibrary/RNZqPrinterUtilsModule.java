@@ -121,7 +121,7 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getBondedPrinter(Promise promise) {
-    Log.d(LOG_TAG, "Get bonded peripherals");
+    Log.d(LOG_TAG, "Get bonded printer");
     Set<BluetoothDevice> deviceSet = getBluetoothAdapter().getBondedDevices();
     for (BluetoothDevice device : deviceSet) {
       ParcelUuid[] deviceUuids = device.getUuids();
@@ -131,6 +131,6 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
         }
       }
     }
-    promise.resolve("")
+    promise.resolve("");
   }
 }
