@@ -3,6 +3,11 @@ package com.reactlibrary;
 
 import android.util.Log;
 
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
+import android.os.ParcelUuid
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -26,10 +31,28 @@ import com.zebra.sdk.printer.PrinterStatus;
 public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
   private final ReactApplicationContext reactContext;
+  private BluetoothAdapter bluetoothAdapter;
+  private BluetoothManager bluetoothManager;
+  private Context context;
 
   public RNZqPrinterUtilsModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
+  }
+
+  private BluetoothAdapter getBluetoothAdapter() {
+    if (bluetoothAdapter == null) {
+      BluetoothManager manager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
+      bluetoothAdapter = manager.getAdapter();
+    }
+    return bluetoothAdapter;
+  }
+
+  private BluetoothManager getBluetoothManager() {
+    if (bluetoothManager == null) {
+      bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
+    }
+    return bluetoothManager;
   }
 
   @Override
@@ -93,6 +116,20 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
     } catch (ZebraPrinterLanguageUnknownException e) {
       Log.i(getName(), "unknow printer languague");
       promise.reject(e.getMessage());
+    }
+  }
+
+  @ReactMethod
+  public void getBondedPeripherals(Promise promise) {
+    Log.d(LOG_TAG, "Get bonded peripherals");
+    Set<BluetoothDevice> deviceSet = getBluetoothAdapter().getBondedDevices();
+    for (BluetoothDevice device : deviceSet) {
+      ParcelUuid[] deviceUuids = device.getUuids();
+      for (ParcelUuid uuid : deviceUuids) {
+        if (uuid.toString() == "0001101-0000-1000-8000-00805F9B34F") {
+          promise.resolve(device.getAddress());
+        }
+      }
     }
   }
 }
