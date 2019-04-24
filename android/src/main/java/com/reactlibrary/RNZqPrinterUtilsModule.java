@@ -3,6 +3,7 @@ package com.reactlibrary;
 
 import android.util.Log;
 
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
@@ -27,6 +28,8 @@ import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 import com.zebra.sdk.printer.ZebraPrinterFactory;
 import com.zebra.sdk.printer.ZebraPrinterLinkOs;
 import com.zebra.sdk.printer.PrinterStatus;
+
+import java.util.Set;
 
 public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
@@ -121,7 +124,7 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getBondedPrinter(Promise promise) {
-    Log.d(LOG_TAG, "Get bonded printer");
+    Log.d(getName(), "Get bonded printer");
     Set<BluetoothDevice> deviceSet = getBluetoothAdapter().getBondedDevices();
     for (BluetoothDevice device : deviceSet) {
       ParcelUuid[] deviceUuids = device.getUuids();
