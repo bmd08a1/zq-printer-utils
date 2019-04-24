@@ -6,7 +6,7 @@ import android.util.Log;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
-import android.os.ParcelUuid
+import android.os.ParcelUuid;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -120,7 +120,7 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void getBondedPeripherals(Promise promise) {
+  public void getBondedPrinter(Promise promise) {
     Log.d(LOG_TAG, "Get bonded peripherals");
     Set<BluetoothDevice> deviceSet = getBluetoothAdapter().getBondedDevices();
     for (BluetoothDevice device : deviceSet) {
@@ -131,5 +131,6 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
         }
       }
     }
+    promise.resolve("")
   }
 }
