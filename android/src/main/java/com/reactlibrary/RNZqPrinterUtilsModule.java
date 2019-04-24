@@ -128,8 +128,10 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
     Log.d(getName(), "Get bonded printer");
     Set<BluetoothDevice> deviceSet = getBluetoothAdapter().getBondedDevices();
     for (BluetoothDevice device : deviceSet) {
+      Log.d(getName(), device.getAddress());
       ParcelUuid[] deviceUuids = device.getUuids();
       for (ParcelUuid uuid : deviceUuids) {
+        Log.d(getName(), uuid.toString());
         if (uuid.toString() == "0001101-0000-1000-8000-00805F9B34F") {
           promise.resolve(device.getAddress());
         }
