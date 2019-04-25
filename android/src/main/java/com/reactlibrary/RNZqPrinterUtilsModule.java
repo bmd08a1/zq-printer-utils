@@ -140,4 +140,14 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
     }
     promise.resolve("");
   }
+
+  @ReactMethod
+  public void isBluetoothEnabled(Promise promise) {
+    Log.d(getName(), "check if Bluetooth is enabled");
+    if (getBluetoothAdapter() == null) {
+      Log.d(getName(), "Bluetooth is not supported");
+      promise.resolve(false);
+    }
+    promise.resolve(getBluetoothAdapter().isEnabled())
+  }
 }
