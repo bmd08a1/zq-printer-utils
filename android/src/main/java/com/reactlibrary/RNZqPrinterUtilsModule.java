@@ -65,35 +65,6 @@ public class RNZqPrinterUtilsModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void listNearbyDevicesAddress(final Promise promise) {
-    final WritableArray devicesAddress = Arguments.createArray();
-
-    try {
-      BluetoothDiscoverer.findPrinters(this.reactContext, new DiscoveryHandler() {
-        @Override
-        public void foundPrinter(DiscoveredPrinter discoveredPrinter) {
-          Log.i(getName(), "Discovered a printer");
-          devicesAddress.pushString(discoveredPrinter.address);
-        }
-
-        @Override
-        public void discoveryFinished() {
-          Log.i(getName(), "Discovery finished");
-          promise.resolve(devicesAddress);
-        }
-
-        @Override
-        public void discoveryError(String s) {
-          Log.i(getName(), "Discovery error");
-        }
-      });
-    } catch (ConnectionException e) {
-      Log.i(getName(), "Printer connection error");
-      promise.reject(getName(), e);
-    }
-  }
-
-  @ReactMethod
   public void printWithCommands(String printerAddress, String commands, Promise promise) {
     Connection connection = new BluetoothConnection(printerAddress);
 
